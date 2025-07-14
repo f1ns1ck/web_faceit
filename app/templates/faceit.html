@@ -1,9 +1,21 @@
-<form method="post" action="/faceit">
-    <div>
-        <br>
-        <a>Steam link: </a><br>
-        <input class="steam_link" name="steam_link" placeholder="Enter Steam Link" style="height: 20px;"/><br>
-        <button class="button" type="submit" style="width: 50px; height: 20px; margin-top: 10px;">Find</button>
-    </div>
-</form>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>WHITE POWER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mainFaceit.css') }}">
+</head>
 
+<body>
+  <form id="faceitForm">
+    <div class="search-row">
+      <input id="steamLink" name="steam_link" type="text" placeholder="https://steamcommunity.com/id/########/" />
+      <button class="button" type="submit">Найти</button>
+    </div>
+  </form>
+  <div id="result"></div>
+  <script src="{{ url_for('static', filename='js/faceit.js') }}"></script>
+</body>
+</html>

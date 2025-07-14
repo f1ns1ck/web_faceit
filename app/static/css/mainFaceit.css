@@ -1,0 +1,114 @@
+:root {
+    --bg:#111;
+    --card:#1c1c1c;
+    --accent:#0af;
+    --text:#e5e5e5;
+    --muted:#888;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif}
+body{
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    min-height:100vh;
+    padding:20px;
+}
+.search-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+    width:420px;
+}
+.search-row input{
+    flex:1;
+    padding:10px 14px;
+    border:none;
+    border-radius:8px;
+    background:#222;
+    color:var(--text);
+    font-size:14px;
+    outline:none;
+}
+.search-row input::placeholder{
+    color:var(--muted);
+}
+.search-row button{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background:var(--accent);
+    color:#111;
+    font-weight:600;
+    cursor:pointer;
+    transition:opacity .2s;
+}
+.search-row button:hover{opacity:.85}
+
+.card{
+    display:none;
+    width:420px;
+    background:var(--card);
+    border-radius:12px;
+    padding:22px 26px 26px;
+    box-shadow:0 0 20px rgba(0,0,0,.6);
+}
+.top{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:20px;
+}
+.avatar{
+    width:60px;height:60px;
+    border-radius:50%;
+    background:#333;
+    flex-shrink:0;
+}
+.user{flex:1}
+.name{
+    font-size:18px;
+    font-weight:600;
+    color:#fff;
+    letter-spacing:.4px;
+    text-decoration:none;
+}
+.steam{
+    font-size:13px;
+    color:var(--accent);
+    text-decoration:none;
+}
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:18px;
+}
+.stat{
+    background:#222;
+    border-radius:8px;
+    padding:12px 8px;
+    text-align:center;
+    font-size:14px;
+}
+.stat .label{
+    font-size:11px;
+    color:var(--muted);
+    margin-bottom:4px;
+}
+.stat .value{
+    font-weight:600;
+    color:var(--accent);
+}
+.lvl-icon{
+    width:20px;
+    height:20px;
+    margin-left:4px;
+    vertical-align:-4px;
+}
+.elo{
+    font-size:10px;
+    margin-left:0px;
+}
