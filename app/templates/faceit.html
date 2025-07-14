@@ -2,13 +2,19 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>WHITE POWER</title>
+  <title>ГОЙДА БРАТЬЯ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/mainFaceit.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/particles.css') }}">
+
 </head>
 
+<div class="TagName">
+  <h1>FACEITTRACE</h1>
+</div>
+
 <body>
+  <div id="particles-js"></div>
   <form id="faceitForm">
     <div class="search-row">
       <input id="steamLink" name="steam_link" type="text" placeholder="https://steamcommunity.com/id/########/" />
@@ -16,6 +22,9 @@
     </div>
   </form>
   <div id="result"></div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
   <script src="{{ url_for('static', filename='js/faceit.js') }}"></script>
 </body>
 </html>

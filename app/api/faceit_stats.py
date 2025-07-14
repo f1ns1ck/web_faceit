@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from modules.test import Steam, Faceit
+from modules.faceit import Steam, Faceit
 
 class FaceitStats(Resource):
     def post(self):

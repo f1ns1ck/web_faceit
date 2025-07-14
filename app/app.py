@@ -2,12 +2,11 @@ import flask
 from flask import Flask, render_template, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
-from modules.test import Steam, Faceit
+from modules.faceit import Steam, Faceit
 import os
 from api.faceit_stats import FaceitStats
 
 app = Flask(__name__)
-
 api = Api(app)
 api.add_resource(FaceitStats, '/api/faceit/stats')
 

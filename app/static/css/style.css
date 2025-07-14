@@ -1,0 +1,198 @@
+@font-face {
+    font-family: "Faithful";
+    src: url('../fonts/fa-solid-900.woff2') format('truetype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Test";
+    src: url('../fonts/6ae84K2oVqwItm4TCpAy2g.woff2') format('truetype');
+    font-style: normal;
+}
+
+:root {
+    --bg:#111;
+    --card:#1c1c1c;
+    --accent:#326ef0; 
+    --text:#e5e5e5;
+    --muted:#888;
+    --accent_glitch: #eb055a;
+    --shadow: #e23f7a2e;
+    --border: #313131;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    /* font-family: 'Inter', sans-serif; */
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    min-height:100vh;
+    padding:20px;
+}
+.search-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+    width:420px;
+}
+.search-row input{
+    flex:1;
+    padding:10px 14px;
+    border:none;
+    border-radius:8px;
+    background:#222;
+    color:var(--text);
+    font-size:14px;
+    outline:none;
+}
+.search-row input::placeholder{
+    color:var(--muted);
+}
+
+.search-row button{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background: var(--accent_glitch);
+    color:#ffffff;
+    font-weight:600;
+    cursor:pointer;
+    transition:opacity .2s;
+}
+.search-row button:hover{opacity:.85}
+
+.card{
+    display:none;
+    width:420px;
+    background:rgb(28,28,28);
+    border: 1px solid var(--border);
+    border-radius:12px;
+    padding:22px 26px 26px;
+    box-shadow:0 0 100px var(--shadow);
+    font-family: "Test";
+}
+.top{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:20px;
+}
+.avatar{
+    width:60px;height:60px;
+    border-radius:50%;
+    background:#333;
+    flex-shrink:0;
+}
+.user{flex:1}
+.name{
+    font-size:15px;
+    font-weight:600;
+    color:#fff;
+    letter-spacing:.4px;
+    text-decoration:none;
+}
+.steam{
+    font-size:15px;
+    color:var(--accent);
+    text-decoration:none;
+}
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:18px;
+}
+.stat{
+    background:#222;
+    border-radius:8px;
+    border: 1px solid #313131;
+    padding:12px 8px;
+    text-align:center;
+    font-size:14px;
+}
+.stat .label{
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:4px;
+}
+.stat .value{
+    font-weight:600;
+    color:white;
+}
+.lvl-icon{
+    width:25px;
+    height:25px;
+    margin-left:4px;
+    vertical-align:-8px;
+}
+.elo{
+    font-size:13px;
+    margin-left:0px;
+}
+
+.TagName {
+    font-family: "Faithful", sans-serif;
+    line-height: 1;
+    font-size: 30px;
+    position: relative;
+    display: inline-block;
+    color: #dfdada;
+    transform: translate(0px, -10px);
+    animation: glitch 0.5s infinite steps(1);
+}
+
+/* Основной глитч (резкие смещения) */
+@keyframes glitch {
+    0% { text-shadow: 4px 0 0 var(--accent_glitch), -2px 0 0 var(--accent); }
+    25% { text-shadow: -2px 0 0 var(--accent_glitch), -2px 0 0 var(--accent); }
+    50% { text-shadow: 2px 0 0 var(--accent_glitch), -2px 0 0 var(--accent); }
+    75% { text-shadow: -2px 0 0 var(--accent_glitch), 4px 0 0 var(--accent); }
+    100% { text-shadow: 2px 0 0 var(--accent_glitch), -2px 0 0 var(--accent); }
+}
+
+/* Дополнительные "шумовые" слои */
+.TagName::before,
+.TagName::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.TagName::before {
+    color: #0ff;
+    z-index: -1;
+    animation: glitch-before 0.3s infinite steps(1);
+}
+
+.TagName::after {
+    color: #f0f;
+    z-index: -2;
+    animation: glitch-after 0.4s infinite steps(2);
+}
+
+@keyframes glitch-before {
+    0%, 100% { transform: translate(0); }
+    25% { transform: translate(-3px, 0); }
+    50% { transform: translate(0, 2px); }
+    75% { transform: translate(1px, -1px); }
+}
+
+@keyframes glitch-after {
+    0%, 100% { transform: translate(0); }
+    25% { transform: translate(1px, -2px); }
+    50% { transform: translate(-1px, 0); }
+    75% { transform: translate(2px, 1px); }
+}
