@@ -8,10 +8,20 @@ class FaceitStats(Resource):
         args = parser.parse_args()
 
         steam_link = args['steam_link'].strip()
-        steamid = Steam(steam_link).get_id()
-        faceit = Faceit(steamid)
-        stats = faceit.get_stats(30)
-
+        try:
+            steamid = Steam(steam_link).get_id()
+            if not steamid:
+                raise ValueError
+        except Exception as e: 
+            return {"error": "No player found with the given Steam link"}, 404
+        
+        try:
+            faceit = Faceit(steamid)
+            stats = faceit.get_stats(30)
+            print(stats["SteamID"])
+        except Exception:
+            return {"error": "No player found with the given Steam link"}, 404
+        
         return {
             "nickname": stats['Nickname'],
             "avatar": stats["Avatar"],

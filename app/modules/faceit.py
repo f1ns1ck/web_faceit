@@ -16,8 +16,6 @@ class Steam:
                     return re.search(r'7656\d{13}', item.text).group()
         else: 
             return self.steam_link.split("/")[4]
-
-
 class Faceit(): 
     def __init__(self, steam_link):
         self.steam_link = steam_link
@@ -35,7 +33,6 @@ class Faceit():
             "ADR": 0
         }
 
-
     def get_profile(self) -> str: 
         response = requests.get(f"https://www.faceit.com/api/searcher/v1/players?limit=20&offset=0&game_id={self.steam_link}", 
                                 impersonate="chrome110").json()
@@ -46,8 +43,7 @@ class Faceit():
         self.stats["Avatar"] = first_player['avatar']
         return first_player["id"]
     
-    # i6 - kills | i7 - assists | i8 - deaths | c10 - ADR | c2 - KD | c3 - KR |
-    def get_stats(self, count: int = 0) -> json:
+    def get_stats(self, count: int = 30) -> json:
         userid = self.get_profile()
         response = requests.get(f"https://www.faceit.com/api/stats/v1/stats/time/users/{userid}/games/cs2?size={count}&game_mode=5v5",
                                 impersonate="chrome110").json()
@@ -103,13 +99,10 @@ class Faceit():
             case x if 2001 <= x:
                 return "10"
 
-
 if __name__ == "__main__": 
-    steam = Steam("https://steamcommunity.com/id/daekside6666666/")
+    steam = Steam()
     steamid = steam.get_id()
     print(steamid, "steamid")
     fac = Faceit(steamid)
     stats = fac.get_stats(30)
     el = fac.calculate_lvl(501)
-
-    # 523 453

@@ -1,8 +1,5 @@
-import flask
-from flask import Flask, render_template, request, redirect, flash
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template
 from flask_restful import Api
-from modules.faceit import Steam, Faceit
 import os
 from api.faceit_stats import FaceitStats
 

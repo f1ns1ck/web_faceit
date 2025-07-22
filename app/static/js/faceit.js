@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('faceitForm');
+  const form   = document.getElementById('faceitForm');
   const result = document.getElementById('result');
 
   form.addEventListener('submit', async (e) => {
@@ -13,9 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ steam_link: steamLink })
       });
-      if (!res.ok) throw new Error('Ошибка загрузки данных');
+
+      // ВАЖНО: парсим JSON ДО проверки res.ok
       const data = await res.json();
 
+      if (!res.ok) {
+        // payload.error содержит строку с ошибкой
+        throw new Error(data.error || 'Unknown error');
+      }
+      
       result.innerHTML = `
         <div class="card" style="display:block;">
           <div class="top">
