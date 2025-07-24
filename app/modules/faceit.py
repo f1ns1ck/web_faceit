@@ -79,27 +79,27 @@ class Faceit():
             self.stats.adr = round(self.stats.adr / matches, 2)
         return self.stats
 
-    def calculate_lvl(elo) -> str:
-        match elo: 
-            case x if 100 <= x <= 500: 
+    def calculate_lvl(elo: int) -> str:
+        match elo:
+            case elo if elo <= 500:
                 return "1"
-            case x if 501 <= x <= 750: 
+            case elo if elo <= 750:
                 return "2"
-            case x if 751 <= x <= 900:
+            case elo if elo <= 900:
                 return "3"
-            case x if 901 <= x <= 1050:
+            case elo if elo <= 1050:
                 return "4"
-            case x if 1051 <= x <= 1200: 
+            case elo if elo <= 1200:
                 return "5"
-            case x if 1201 <= x <= 1350: 
+            case elo if elo <= 1350:
                 return "6"
-            case x if 1351 <= x <= 1530:
+            case elo if elo <= 1530:
                 return "7"
-            case x if 1531 <= x <= 1750: 
+            case elo if elo <= 1750:
                 return "8"
-            case x if 1751 <= x <= 2000:
+            case elo if elo <= 2000:
                 return "9"
-            case x if 2001 <= x:
+            case _:
                 return "10"
 
 if __name__ == "__main__": 
