@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re, json
 
 class Steam: 
-    def __init__(self, steam_link: str = ''):
+    def __init__(self, steam_link: str):
         self.steam_link = steam_link
     
     def get_id(self) -> str: 
@@ -76,7 +76,7 @@ class Faceit():
         print(self.stats)
         return self.stats
 
-    def calculate_lvl(self, elo):
+    def calculate_lvl(elo):
         match elo: 
             case x if 100 <= x <= 500: 
                 return "1"
