@@ -22,17 +22,17 @@ class FaceitStats(Resource):
     @staticmethod
     def _build_response_(stats: dict) -> dict: 
         return {
-            "nickname": stats['Nickname'],
-            "avatar": stats["Avatar"],
-            "steamid": stats["SteamID"],
-            "kills": int(stats["Kills"]),
-            "assists": int(stats["Assists"]),
-            "deaths": int(stats["Deaths"]),
-            "kd": stats["K/D"],
-            "kr": stats["K/R"],
-            "adr": stats["ADR"],
-            "elo": int(stats['Elo']),
-            "level": Faceit.calculate_lvl(int(stats['Elo']))
+            "nickname": stats.nickname,
+            "avatar": stats.avatar,
+            "steamid": stats.steam_id,
+            "kills": int(stats.kills),
+            "assists": int(stats.assists),
+            "deaths": int(stats.deaths),
+            "kd": stats.kd,
+            "kr": stats.kr,
+            "adr": stats.adr,
+            "elo": int(stats.elo),
+            "level": Faceit.calculate_lvl(int(stats.elo))
         }
 
     def post(self):

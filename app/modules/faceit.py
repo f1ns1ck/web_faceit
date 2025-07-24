@@ -1,9 +1,11 @@
 from curl_cffi import requests
 from bs4 import BeautifulSoup
-import re, json
+import re
+from dataclasses import dataclass
+
 
 class Steam: 
-    def __init__(self, steam_link: str):
+    def __init__(self, steam_link: str) -> None:
         self.steam_link = steam_link
     
     def get_id(self) -> str: 
@@ -16,22 +18,26 @@ class Steam:
                     return re.search(r'7656\d{13}', item.text).group()
         else: 
             return self.steam_link.split("/")[4]
+
+@dataclass
+class FaceitData:
+    nickname: str = ""
+    avatar: str = ""
+    steam_id: str = ""
+    elo: int = 0
+    matches: int = 0
+    kills: int = 0
+    assists: int = 0
+    deaths: int = 0
+    kd : float = 0.0
+    kr: float = 0.0
+    adr: float = 0.0
+
 class Faceit(): 
-    def __init__(self, steam_link):
+    def __init__(self, steam_link) -> None:
         self.steam_link = steam_link
-        self.stats = {
-            "Nickname": "",
-            "Avatar": "",
-            "SteamID": steam_link,
-            "Elo": 0,
-            "Matches": 0,
-            "Kills": 0,
-            "Assists": 0,
-            "Deaths": 0,
-            "K/D": 0,
-            "K/R": 0,
-            "ADR": 0
-        }
+        self.stats = FaceitData(steam_id=steam_link)
+
 
     def get_profile(self) -> str: 
         response = requests.get(f"https://www.faceit.com/api/searcher/v1/players?limit=20&offset=0&game_id={self.steam_link}", 
@@ -39,44 +45,41 @@ class Faceit():
         if not response.get("payload"):
             raise ValueError("No player found with the given Steam link")
         first_player = response["payload"][0]
-        self.stats["Nickname"] = first_player['nickname']
-        self.stats["Avatar"] = first_player['avatar']
+        self.stats.nickname = first_player['nickname']
+        self.stats.avatar = first_player['avatar']
         return first_player["id"]
     
-    def get_stats(self, count: int = 30) -> json:
+    def get_stats(self, count: int = 30) -> dict:
         userid = self.get_profile()
         response = requests.get(f"https://www.faceit.com/api/stats/v1/stats/time/users/{userid}/games/cs2?size={count}&game_mode=5v5",
                                 impersonate="chrome110").json()
         matches = 0
-        rounds = 0
         for item in response: 
             kills, assists, deaths = item['i6'], item['i7'], item['i8']
-            self.stats['Kills'] += int(kills)
-            self.stats['Assists'] += int(assists)
-            self.stats['Deaths'] += int(deaths)
-            self.stats["K/D"] += round(float(item["c2"]), 2)
-            self.stats["ADR"] += round(float(item["c10"]), 1)
-            self.stats["K/R"] += round(float(item["c3"]), 2)
-            rounds += int(item['i18'].split(" / ")[0]) + int(item['i18'].split(" / ")[1])
+            self.stats.kills += int(kills)
+            self.stats.assists += int(assists)
+            self.stats.deaths += int(deaths)
+            self.stats.kd += round(float(item["c2"]), 2)
+            self.stats.adr += round(float(item["c10"]), 1)
+            self.stats.kr += round(float(item["c3"]), 2)
             matches += 1
         
-        self.stats['Matches'] =  matches
+        self.stats.matches =  matches
 
         for item in response:
-            self.stats["Elo"] = item['elo']
+            self.stats.elo = item['elo']
             break
 
         if matches > 0: 
-            self.stats['Kills'] = round(self.stats['Kills'] / matches)
-            self.stats['Assists'] = round(self.stats['Assists'] / matches)
-            self.stats['Deaths'] = round(self.stats['Deaths'] / matches)
-            self.stats["K/D"] = round(self.stats["K/D"] / matches, 2)
-            self.stats["K/R"] = round(self.stats["K/R"] / matches, 2)
-            self.stats['ADR'] = round(self.stats['ADR'] / matches, 2)
-        print(self.stats)
+            self.stats.kills = round(self.stats.kills / matches)
+            self.stats.assists = round(self.stats.assists / matches)
+            self.stats.deaths = round(self.stats.deaths / matches)
+            self.stats.kd = round(self.stats.kd / matches, 2)
+            self.stats.kr = round(self.stats.kr / matches, 2)
+            self.stats.adr = round(self.stats.adr / matches, 2)
         return self.stats
 
-    def calculate_lvl(elo):
+    def calculate_lvl(elo) -> str:
         match elo: 
             case x if 100 <= x <= 500: 
                 return "1"
